@@ -1,0 +1,35 @@
+using System;
+using System.Net;
+using System.IO;
+
+/// <summary>
+/// This function extracts data from a website.
+/// </summary>
+/// <param name="url">The URL of the website to extract data from.</param>
+/// <returns>A string containing the data from the website.</returns>
+public string ExtractDataFromWebsite(string url)
+{
+    try
+    {
+        // Create a web request for the specified URL
+        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+
+        // Get the response from the website
+        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+        // Read the data from the response
+        StreamReader reader = new StreamReader(response.GetResponseStream());
+        string data = reader.ReadToEnd();
+
+        // Return the data
+        return data;
+    }
+    catch (Exception ex)
+    {
+        // Log the exception
+        Console.WriteLine("Error extracting data from website: " + ex.Message);
+
+        // Return an empty string
+        return "";
+    }
+}
